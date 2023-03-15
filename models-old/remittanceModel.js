@@ -8,10 +8,10 @@ const remittanceSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    transaction: [
+    order: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: "transaction",
+        ref: "Order",
       },
     ],
     payment: [
@@ -20,10 +20,12 @@ const remittanceSchema = new mongoose.Schema(
         ref: "Payment",
       },
     ],
-    paymentRefNumber: {
-      type: String,
-    },
-
+    vendor: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Vendor",
+      },
+    ],
     customer: [
       {
         type: mongoose.Schema.ObjectId,
@@ -55,21 +57,21 @@ const remittanceSchema = new mongoose.Schema(
       enum: ["cash-payment", "bank-transfer", "cheque-payment"],
     },
 
-    // bankName: {
-    //   type: String,
-    // },
-    // bankAccountNumber: {
-    //   type: String,
-    // },
-    // accountTitle: {
-    //   type: String,
-    // },
-    // chequeNumber: {
-    //   type: String,
-    // },
-    // bankChequeOwner: {
-    //   type: String,
-    // },
+    bankName: {
+      type: String,
+    },
+    bankAccountNumber: {
+      type: String,
+    },
+    accountTitle: {
+      type: String,
+    },
+    chequeNumber: {
+      type: String,
+    },
+    bankChequeOwner: {
+      type: String,
+    },
 
     postedBy: [
       {

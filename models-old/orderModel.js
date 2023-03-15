@@ -11,10 +11,6 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Cart",
     },
-    transactionId: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Transaction",
-    },
     product: {
       type: mongoose.Schema.ObjectId,
       ref: "Product",

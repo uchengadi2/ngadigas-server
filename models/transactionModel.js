@@ -1,53 +1,22 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const orderSchema = new mongoose.Schema(
+const transactionSchema = new mongoose.Schema(
   {
     orderNumber: {
       type: String,
       required: true,
     },
-    cartId: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Cart",
-    },
-    transactionId: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Transaction",
-    },
-    product: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Product",
-    },
-    productCategory: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Category",
-    },
-    productVendor: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Vendor",
-    },
-    quantityAdddedToCart: {
+
+    totalProductWeight: {
       type: Number,
     },
-    orderedQuantity: {
-      type: Number,
-    },
-    orderedPrice: {
-      type: Number,
-    },
+
     productCurrency: {
       type: mongoose.Schema.ObjectId,
       ref: "Currency",
     },
-    productLocation: {
-      type: mongoose.Schema.ObjectId,
-      ref: "State",
-    },
-    locationCountry: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Country",
-    },
+
     totalDeliveryCost: {
       type: Number,
     },
@@ -71,11 +40,8 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Country",
     },
-    dateAddedToCart: {
-      type: Date,
-    },
 
-    dateOrdered: {
+    transactionDate: {
       type: Date,
       default: Date.now,
     },
@@ -101,6 +67,8 @@ const orderSchema = new mongoose.Schema(
         "ready-for-delivery",
         "rejected",
         "assigned-for-delivery",
+        "returned",
+        "fullfilled",
       ],
     },
     rejectionReason: {
@@ -114,14 +82,6 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-//QUERY MIDDLEWARE
-orderSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "product",
-  });
-  next();
-});
+const Transaction = mongoose.model("Transaction", transactionSchema);
 
-const Order = mongoose.model("Order", orderSchema);
-
-module.exports = Order;
+module.exports = Transaction;
